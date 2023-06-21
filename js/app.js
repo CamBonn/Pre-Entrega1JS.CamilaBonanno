@@ -1,7 +1,3 @@
-const semi = 4000;
-const acri = 7500;
-const capp = 5000;
-const masajes = 2400;
 let sumartotal = 0;
 let sumaSemi = 0;
 let sumaAcri = 0;
@@ -13,11 +9,28 @@ let total = 0;
 let compra = 0;
 let precio = 0;
 alert(`BIENVENIDA/O A SPA BONN`);
+/* CLASS CONSTRUCTORA DE LOS SEVICIOS */
+class Servicios {
+  constructor(id, servicio, precio, duracion) {
+    this.id = id;
+    this.servicio = servicio;
+    this.precio = precio;
+    this.duracion = duracion;
+  }
+}
+/* OBJETOS */
+const servicio1 = new Servicios(1, "Semipermanente", 4000, "1:30 hs");
+const servicio2 = new Servicios(2, "Acrilicas", 7500, "3:00 hs");
+const servicio3 = new Servicios(3, "Capping", 5000, "2:00 hs");
+const servicio4 = new Servicios(4, "Masajes", 2400, "0:50 hs");
 
-let contacto = prompt(
-  "Ingrese su numero de telefono para poder comunicarnos con usted"
-);
+/* ARRAY DE LOS SERVICIOS */
+const serviciosOfrecer = [];
+// pusheando los objetos
+serviciosOfrecer.push(servicio1, servicio2, servicio3, servicio4);
 
+/* FUNCION 1 */
+/* TOTAL A PAGAR */
 function mostrarResultados() {
   alert(`Servicios seleccionados:
   ${sumaSemi} Semipermanente
@@ -26,6 +39,8 @@ function mostrarResultados() {
   ${sumaMasajes} Masajes
   el total de los servicios es de $${sumartotal}.`);
 
+  /* METODO DE PAGO */
+  /* CICLOS */
   while (sumartotal != 0) {
     medioDePago = prompt(`
       Seleccione medio de pago:
@@ -79,41 +94,76 @@ function mostrarResultados() {
   }
 }
 
-while (true) {
-  compra = prompt(`seleccione lo servicios que quiera realizarse:
+/* SELECCIONAR SERVICIOS */
+function agendarTurno() {
+  while (true) {
+    compra = prompt(`seleccione lo servicios que quiera realizarse:
 1 para Semipermanente 
 2 para Acrilicas 
 3 para Capping 
 4 para Masajes
-y "fin" si desea terminar de seleccionar`);
+0 si desea terminar de seleccionar`);
 
-  if (compra == "fin" || compra == "FIN") {
-    alert(`el total es : $${sumartotal}`);
-    break;
-  } else if (compra == 1) {
-    precio = 4000;
-    sumartotal += precio;
-    sumaSemi += 1;
-  } else if (compra == 2) {
-    precio = 7500;
-    sumartotal += precio;
-    sumaAcri += 1;
-  } else if (compra == 3) {
-    precio = 5000;
-    sumartotal += precio;
-    sumaCapp += 1;
-  } else if (compra == 4) {
-    precio = 2400;
-    sumartotal += precio;
-    sumaMasajes += 1;
-  } else {
-    alert("opcion invalida, reintente");
-    continue;
+    if (compra === "0") {
+      alert(`el total es : $${sumartotal}`);
+      break;
+    } else if (compra == 1) {
+      precio = servicio1.precio;
+      sumartotal += precio;
+      sumaSemi += 1;
+    } else if (compra == 2) {
+      precio = servicio2.precio;
+      sumartotal += precio;
+      sumaAcri += 1;
+    } else if (compra == 3) {
+      precio = servicio3.precio;
+      sumartotal += precio;
+      sumaCapp += 1;
+    } else if (compra == 4) {
+      precio = servicio4.precio;
+      sumartotal += precio;
+      sumaMasajes += 1;
+    } else {
+      alert("opcion invalida, reintente");
+      continue;
+    }
+    alert(`El servicio fue agregado correctamente`);
   }
-  alert(`el total es : $${sumartotal}.`);
 }
 
-mostrarResultados();
-alert(
-  `En la breve nos comunicaremos con usted al ${contacto} para coordinar dia y horario para el turno \n Muchas gracias`
-);
+
+function menu() {
+  let salirMenu = false;
+
+  do {
+    let opcionIngresada = parseInt(
+      prompt(`Ingrese la opción deseada
+      1 - Agendar un turno
+      2 - Ver productos
+      3 - Ver carrito
+      0 - Salir del menu`)
+    );
+    switch (opcionIngresada) {
+      case 1:
+        agendarTurno();
+      mostrarResultados();
+
+        break;
+      case 2:
+        catalogo();
+        break;
+      case 3:
+        verCarrito();
+        break;
+      case 0:
+        console.log(`Gracias por utilizar nuestra app. Saludos!`);
+        salirMenu = true;
+        break;
+      default:
+        console.log("Opción no válida, ingrese alguna presente en el menu");
+        break;
+    }
+  } while (!salirMenu);
+}
+
+menu();
