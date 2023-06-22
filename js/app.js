@@ -130,8 +130,55 @@ function agendarTurno() {
     alert(`El servicio fue agregado correctamente`);
   }
 }
+class Productos {
+  constructor(id, nombre, precio, disponibilidad) {
+    this.id = id;
+    this.nombre = nombre;
+    this.precio = precio;
+    this.disponibilidad = disponibilidad;
+  }
+}
+const producto1 = new Productos(1, "Esmalte tradicional", 2000, true);
+const producto2 = new Productos(2, "Crema de mano", 1500, true);
+const producto3 = new Productos(3, "Crema facial para el dia", 4500, true);
+const producto4 = new Productos(4, "Perfume femenino", 9000, true);
+const producto5 = new Productos(5, "Perfume masculino ", 8500, true);
+const producto6 = new Productos(6, "Crema humectante para pies ", 1500, true);
+const producto7 = new Productos(7, "Crema facial para la noche", 5000, true);
 
+const catalogoProductos = [];
+catalogoProductos.push(
+  producto1,
+  producto2,
+  producto3,
+  producto4,
+  producto5,
+  producto6,
+  producto7
+);
+/*  NO LO PUEDO HACER FUNCIONAR EL CATALOGO.
+EN LUGAR DE APARECERME EN NOMBRE DEL PRODUCTO Y EL PRECIO ME APARECEN MUCHAS ,,,,,,,, */
+function mostrarCatalogo(array) {
+  const produtoNombre = array.map((producto) => {
+    producto.nombre;
+  });
+  const productoPrecio = catalogoProductos.map((elemento) => {
+    elemento.precio;
+  });
+  alert(
+    `Nuestros productos disponibles son estos: ${produtoNombre} y su precio es $${productoPrecio}`
+  );
+}
+/* SEGUNDA FORMA QUE INTENTE PARA VER EL CATALOGO, 
+PERO ME MUESTRA 1 ALERT POR CADA PRODUCTO Y YO BUSCO QUE ME APAREZCA 1 PARA TODOS */
+function mostrarCatalogo2 (array){
+  array.forEach((producto) => {alert(`Nuetros productos disponibles son: ${producto.nombre} $${producto.precio}`)
+});
+}
+/* CARRITO */
+const carrito = [];
 
+/* Menu Inicial */
 function menu() {
   let salirMenu = false;
 
@@ -146,11 +193,12 @@ function menu() {
     switch (opcionIngresada) {
       case 1:
         agendarTurno();
-      mostrarResultados();
+        mostrarResultados();
 
         break;
       case 2:
-        catalogo();
+        /* OPCION DEL CATALOGO INTERCAMBIAR LA FUNCION PARA VER EL ERROR */
+        mostrarCatalogo2(catalogoProductos);
         break;
       case 3:
         verCarrito();
